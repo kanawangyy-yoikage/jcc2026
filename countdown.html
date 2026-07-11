@@ -19,6 +19,7 @@
     --ink:#eef2fb;
     --ink-muted:#8890a6;
     --hairline:rgba(238,242,251,0.08);
+    --letterbox-h:clamp(14px, 3.4vh, 40px);
   }
 
   *{ box-sizing:border-box; }
@@ -29,6 +30,8 @@
     font-family:'Inter', system-ui, sans-serif;
     font-weight:300;
     overflow-x:hidden;
+    padding-top:var(--letterbox-h);
+    padding-bottom:var(--letterbox-h);
   }
 
   .font-display{
@@ -44,7 +47,7 @@
   .letterbox-top, .letterbox-bottom{
     position:fixed;
     left:0; right:0;
-    height:clamp(14px, 3.4vh, 40px);
+    height:var(--letterbox-h);
     background:#000;
     z-index:40;
     pointer-events:none;
