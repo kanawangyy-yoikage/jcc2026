@@ -104,37 +104,13 @@ export default function RegistrationForm() {
         reason: data.reason,
       };
 
-      // Primary: Firebase Firestore (admin reads from here)
-      let firebaseOk = false;
-      if (isFirebaseConfigured()) {
-        try {
-          await createRegistration(payload);
-          firebaseOk = true;
-        } catch (fbErr) {
-          console.error('Firestore write failed:', fbErr);
-        }
+      if (!isFirebaseConfigured()) {
+        throw new Error(
+          'Firebase belum dikonfigurasi. Tambahkan VITE_FIREBASE_* di environment variables.'
+        );
       }
 
-      // Secondary backup: existing Supabase API
-      let supabaseOk = false;
-      try {
-        const res = await fetch('/api/registrations', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        supabaseOk = res.ok;
-        if (!res.ok && !firebaseOk) {
-          const body = await res.json().catch(() => ({}));
-          throw new Error(body.error || 'Gagal mengirim pendaftaran');
-        }
-      } catch (apiErr) {
-        if (!firebaseOk) throw apiErr;
-      }
-
-      if (!firebaseOk && !supabaseOk) {
-        throw new Error('Gagal menyimpan data. Coba lagi.');
-      }
+      await createRegistration(payload);
 
       setSubmitState('success');
       reset();
