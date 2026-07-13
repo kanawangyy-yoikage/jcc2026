@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /registrations/{docId} {
+      // Form publik boleh menambah pendaftaran baru
+      allow create: if request.resource.data.keys().hasAll([
+          'full_name', 'whatsapp', 'class_level', 'major', 'gender', 'divisions', 'reason'
+        ])
+        && request.resource.data.full_name is string
+        && request.resource.data.whatsapp is string
+        && request.resource.data.divisions is list;
+
+      // Hanya admin yang login (Firebase Auth) yang boleh baca/kelola
+      allow read, update, delete: if request.auth != null;
+    }
+  }
+}
