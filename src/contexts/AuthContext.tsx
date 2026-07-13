@@ -18,16 +18,20 @@ interface AuthContextValue {
   user: User | null;
   loading: boolean;
   configured: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
+
+// Email admin tidak pernah ditampilkan ke UI — pengguna cukup input password.
+// Diset lewat env var supaya tidak hardcode di source.
+const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL as string | undefined;
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const configured = isFirebaseConfigured();
+  const configured = isFirebaseConfigured() && Boolean(ADMIN_EMAIL);
 
   useEffect(() => {
     if (!configured) {
@@ -48,11 +52,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       user,
       loading,
       configured,
-      async login(email: string, password: string) {
-        if (!configured) {
+      async login(password: string) {
+        if (!configured || !ADMIN_EMAIL) {
           throw new Error('Firebase belum dikonfigurasi');
         }
-        await signInWithEmailAndPassword(getFirebaseAuth(), email.trim(), password);
+        await signInWithEmailAndPassword(getFirebaseAuth(), ADMIN_EMAIL, password);
       },
       async logout() {
         if (!configured) return;
