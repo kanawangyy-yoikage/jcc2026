@@ -10,7 +10,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/ca
 export default function AdminLogin() {
   const { user, loading, configured, login } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -25,21 +24,21 @@ export default function AdminLogin() {
     setError('');
     setSubmitting(true);
     try {
-      await login(email, password);
+      await login(password);
       navigate('/admin', { replace: true });
     } catch (err) {
       const message =
-        err instanceof Error ? err.message : 'Gagal masuk. Periksa email/password.';
+        err instanceof Error ? err.message : 'Gagal masuk. Periksa password.';
       if (message.includes('invalid-credential') || message.includes('wrong-password')) {
-        setError('Email atau password salah.');
+        setError('Password salah.');
       } else if (message.includes('user-not-found')) {
-        setError('Akun admin tidak ditemukan.');
+        setError('Akun admin belum diatur. Hubungi developer.');
       } else if (message.includes('too-many-requests')) {
         setError('Terlalu banyak percobaan. Coba lagi nanti.');
       } else if (message.includes('Firebase belum')) {
         setError(message);
       } else {
-        setError('Gagal masuk. Periksa email/password dan konfigurasi Firebase.');
+        setError('Gagal masuk. Periksa password dan konfigurasi Firebase.');
       }
     } finally {
       setSubmitting(false);
@@ -85,24 +84,12 @@ export default function AdminLogin() {
                   <li>VITE_FIREBASE_STORAGE_BUCKET</li>
                   <li>VITE_FIREBASE_MESSAGING_SENDER_ID</li>
                   <li>VITE_FIREBASE_APP_ID</li>
+                  <li>VITE_ADMIN_EMAIL</li>
                 </ul>
               </div>
             )}
 
             <form onSubmit={onSubmit} className="space-y-5" noValidate>
-              <div className="space-y-2">
-                <Label htmlFor="admin-email">Email</Label>
-                <Input
-                  id="admin-email"
-                  type="email"
-                  autoComplete="username"
-                  placeholder="admin@jcc.skensa"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-
               <div className="space-y-2">
                 <Label htmlFor="admin-password">Password</Label>
                 <div className="relative">
@@ -115,6 +102,7 @@ export default function AdminLogin() {
                     onChange={(e) => setPassword(e.target.value)}
                     className="pr-11"
                     required
+                    autoFocus
                   />
                   <button
                     type="button"
