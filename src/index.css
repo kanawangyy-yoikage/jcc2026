@@ -125,7 +125,6 @@ body {
 img {
   max-width: 100%;
   display: block;
-  content-visibility: auto;
 }
 
 /* Lenis — recommended base styles */
