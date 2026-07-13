@@ -10,7 +10,7 @@ import { next, rewrite } from '@vercel/edge';
  *
  * Target: 15 Juli 2026, 07:00 WIB (UTC+7) => 2026-07-15T00:00:00Z
  */
-const TARGET_TIMESTAMP = Date.parse('2025-07-15T07:00:00+07:00');
+const TARGET_TIMESTAMP = Date.parse('2026-07-15T07:00:00+07:00');
 
 // Query param rahasia untuk preview/testing sebelum waktunya (opsional).
 // Contoh: https://domainmu.com/?preview=jcc-skensa-2026
