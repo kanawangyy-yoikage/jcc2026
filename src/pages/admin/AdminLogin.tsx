@@ -6,6 +6,7 @@ import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Label } from '../../components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
+import Logo from '../../components/Logo';
 
 export default function AdminLogin() {
   const { user, loading, configured, login } = useAuth();
@@ -49,12 +50,15 @@ export default function AdminLogin() {
     <div className="min-h-screen bg-black text-white antialiased flex items-center justify-center px-5 py-12">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <Link to="/" className="inline-flex items-baseline gap-1.5 group">
-            <span className="text-2xl font-semibold tracking-tight group-hover:opacity-70 transition-opacity">
-              JCC
-            </span>
-            <span className="text-[10px] font-medium tracking-[0.18em] uppercase text-neutral-500">
-              SKENSA
+          <Link to="/" className="inline-flex items-center gap-2 group">
+            <Logo className="h-9 w-9 group-hover:opacity-70 transition-opacity" />
+            <span className="inline-flex items-baseline gap-1.5">
+              <span className="text-2xl font-semibold tracking-tight group-hover:opacity-70 transition-opacity">
+                JCC
+              </span>
+              <span className="text-[10px] font-medium tracking-[0.18em] uppercase text-neutral-500">
+                SKENSA
+              </span>
             </span>
           </Link>
           <p className="mt-3 text-sm text-neutral-500">Panel Admin Open Recruitment</p>

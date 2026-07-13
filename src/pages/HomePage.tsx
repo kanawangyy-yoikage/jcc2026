@@ -1,5 +1,4 @@
 import { lazy, Suspense } from 'react';
-import { useLenis } from '../hooks/useLenis';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 
@@ -21,8 +20,6 @@ function SectionFallback({ height = 'min-h-[240px]' }: { height?: string }) {
 }
 
 export default function HomePage() {
-  useLenis();
-
   return (
     <div className="min-h-screen bg-black text-white antialiased">
       <Navbar />

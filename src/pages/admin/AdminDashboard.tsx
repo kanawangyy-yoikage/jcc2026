@@ -10,11 +10,14 @@ import {
   FileSpreadsheet,
   CheckSquare,
   Square,
+  ArrowDownWideNarrow,
+  ArrowUpNarrowWide,
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import {
   fetchRegistrations,
   formatCreatedAt,
+  getCreatedAtMillis,
   type RegistrationRecord,
 } from '../../lib/firebase';
 import { exportRegistrationsToExcel } from '../../lib/exportExcel';
@@ -23,6 +26,7 @@ import { Input } from '../../components/ui/input';
 import { Checkbox } from '../../components/ui/checkbox';
 import { Card, CardContent } from '../../components/ui/card';
 import { cn } from '../../lib/utils';
+import Logo from '../../components/Logo';
 
 const divisionLabels: Record<string, string> = {
   fotografi: 'Fotografi',
@@ -40,6 +44,7 @@ export default function AdminDashboard() {
   const [error, setError] = useState('');
   const [queryText, setQueryText] = useState('');
   const [notice, setNotice] = useState('');
+  const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -61,14 +66,20 @@ export default function AdminDashboard() {
 
   const filtered = useMemo(() => {
     const q = queryText.trim().toLowerCase();
-    if (!q) return rows;
-    return rows.filter((r) =>
-      [r.full_name, r.whatsapp, r.class_level, r.major, r.gender, r.reason, r.divisions.join(' ')]
-        .join(' ')
-        .toLowerCase()
-        .includes(q)
-    );
-  }, [rows, queryText]);
+    const base = !q
+      ? rows
+      : rows.filter((r) =>
+          [r.full_name, r.whatsapp, r.class_level, r.major, r.gender, r.reason, r.divisions.join(' ')]
+            .join(' ')
+            .toLowerCase()
+            .includes(q)
+        );
+    const sorted = [...base].sort((a, b) => {
+      const diff = getCreatedAtMillis(a.created_at) - getCreatedAtMillis(b.created_at);
+      return sortOrder === 'newest' ? -diff : diff;
+    });
+    return sorted;
+  }, [rows, queryText, sortOrder]);
 
   const allFilteredSelected =
     filtered.length > 0 && filtered.every((r) => selected.has(r.id));
@@ -135,10 +146,13 @@ export default function AdminDashboard() {
       <header className="sticky top-0 z-40 border-b border-neutral-800/80 bg-black/80 backdrop-blur-md">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8 h-16 md:h-[72px] flex items-center justify-between gap-4">
           <div className="flex items-center gap-4 min-w-0">
-            <Link to="/" className="flex items-baseline gap-1.5 shrink-0">
-              <span className="text-xl font-semibold tracking-tight">JCC</span>
-              <span className="text-[10px] font-medium tracking-[0.18em] uppercase text-neutral-500">
-                SKENSA
+            <Link to="/" className="flex items-center gap-2 shrink-0">
+              <Logo className="h-8 w-8" />
+              <span className="flex items-baseline gap-1.5">
+                <span className="text-xl font-semibold tracking-tight">JCC</span>
+                <span className="text-[10px] font-medium tracking-[0.18em] uppercase text-neutral-500">
+                  SKENSA
+                </span>
               </span>
             </Link>
             <span className="hidden sm:inline text-neutral-700">/</span>
@@ -220,6 +234,23 @@ export default function AdminDashboard() {
                 variant="outline"
                 size="sm"
                 className="rounded-full"
+                onClick={() => setSortOrder((v) => (v === 'newest' ? 'oldest' : 'newest'))}
+                disabled={!rows.length || loading}
+                title={sortOrder === 'newest' ? 'Menampilkan terbaru dulu' : 'Menampilkan terlama dulu'}
+              >
+                {sortOrder === 'newest' ? (
+                  <ArrowDownWideNarrow className="h-4 w-4" />
+                ) : (
+                  <ArrowUpNarrowWide className="h-4 w-4" />
+                )}
+                {sortOrder === 'newest' ? 'Terbaru' : 'Terlama'}
+              </Button>
+
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="rounded-full"
                 onClick={() => void load()}
                 disabled={loading}
               >
@@ -290,6 +321,7 @@ export default function AdminDashboard() {
                         <th className="px-3 py-4 font-medium">Kelas</th>
                         <th className="px-3 py-4 font-medium">Jurusan</th>
                         <th className="px-3 py-4 font-medium">Divisi</th>
+                        <th className="px-3 py-4 font-medium">Alasan Bergabung</th>
                         <th className="px-3 py-4 font-medium">Tanggal</th>
                       </tr>
                     </thead>
@@ -331,6 +363,11 @@ export default function AdminDashboard() {
                                   </span>
                                 ))}
                               </div>
+                            </td>
+                            <td className="px-3 py-4 align-top text-neutral-400 max-w-[240px]">
+                              <p className="line-clamp-3" title={row.reason}>
+                                {row.reason || '-'}
+                              </p>
                             </td>
                             <td className="px-3 py-4 align-top text-neutral-500 text-xs whitespace-nowrap">
                               {formatCreatedAt(row.created_at)}

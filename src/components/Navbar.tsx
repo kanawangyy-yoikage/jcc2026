@@ -4,6 +4,7 @@ import { m, AnimatePresence } from '../lib/motion';
 import { Button } from './ui/button';
 import { cn } from '../lib/utils';
 import { useScrolledPast } from '../hooks/useThrottledScroll';
+import Logo from './Logo';
 
 const navLinks = [
   { href: '#beranda', label: 'Beranda' },
@@ -65,12 +66,15 @@ export default function Navbar() {
     >
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <div className="flex h-16 md:h-[72px] items-center justify-between gap-4">
-          <a href="#beranda" className="flex items-baseline gap-1.5 group shrink-0">
-            <span className="text-xl font-semibold tracking-tight text-white group-hover:opacity-70 transition-opacity">
-              JCC
-            </span>
-            <span className="text-[10px] font-medium tracking-[0.18em] uppercase text-neutral-500">
-              SKENSA
+          <a href="#beranda" className="flex items-center gap-2 group shrink-0">
+            <Logo className="h-8 w-8 group-hover:opacity-70 transition-opacity" />
+            <span className="flex items-baseline gap-1.5">
+              <span className="text-xl font-semibold tracking-tight text-white group-hover:opacity-70 transition-opacity">
+                JCC
+              </span>
+              <span className="text-[10px] font-medium tracking-[0.18em] uppercase text-neutral-500">
+                SKENSA
+              </span>
             </span>
           </a>
 

@@ -108,6 +108,19 @@ export async function fetchRegistrations(): Promise<RegistrationRecord[]> {
   });
 }
 
+/** Returns created_at as epoch ms for sorting; 0 if unknown/missing. */
+export function getCreatedAtMillis(value: RegistrationRecord['created_at']): number {
+  if (!value) return 0;
+  if (typeof value === 'string') {
+    const d = new Date(value);
+    return Number.isNaN(d.getTime()) ? 0 : d.getTime();
+  }
+  if (typeof value === 'object' && 'toDate' in value && typeof value.toDate === 'function') {
+    return value.toDate().getTime();
+  }
+  return 0;
+}
+
 export function formatCreatedAt(value: RegistrationRecord['created_at']): string {
   if (!value) return '-';
   if (typeof value === 'string') {

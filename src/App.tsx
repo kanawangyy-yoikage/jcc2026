@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LazyMotion, domAnimation } from './lib/motion';
 import { AuthProvider } from './contexts/AuthContext';
+import { useLenis } from './hooks/useLenis';
 import HomePage from './pages/HomePage';
 
 const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
@@ -16,6 +17,8 @@ function AdminFallback() {
 }
 
 function App() {
+  useLenis();
+
   return (
     <LazyMotion features={domAnimation} strict>
       <AuthProvider>
