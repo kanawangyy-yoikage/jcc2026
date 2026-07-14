@@ -53,9 +53,9 @@ export function scrollToHash(
   if (lenis) {
     lenis.scrollTo(el as HTMLElement, {
       offset,
-      duration: isTouchDevice() ? 1.05 : 1.2,
+      duration: isTouchDevice() ? 1.5 : 1.8,
       easing: lenisEasing,
-      lerp: 0.08,
+      lerp: 0.06,
       immediate: options?.immediate,
     });
     return;
@@ -92,14 +92,15 @@ export function initLenis(): () => void {
   }
 
   /**
-   * Desktop: buttery lerp 0.08 + duration 1.2.
+   * Desktop: buttery lerp 0.055 + duration 1.9 — momentum lebih panjang &
+   * lebih halus dari sebelumnya (lerp 0.08 / duration 1.2).
    * Touch: sedikit lebih tinggi lerp-nya biar gerakan tetap stabil.
    * Low-power: lerp lebih tinggi lagi (transisi lebih pendek) supaya main
    * thread tidak keberatan, tapi tetap pakai Lenis, bukan native scroll.
-   * Reduced-motion: durasi dipangkas jauh lebih pendek, tapi tetap Lenis.
+   * Reduced-motion: durasi tetap dipangkas jauh lebih pendek, tapi tetap Lenis.
    */
-  const lerp = lowPower ? 0.12 : touch ? 0.09 : 0.08;
-  const duration = reducedMotion ? 0.3 : lowPower ? 0.9 : 1.2;
+  const lerp = lowPower ? 0.09 : touch ? 0.07 : 0.055;
+  const duration = reducedMotion ? 0.5 : lowPower ? 1.3 : 1.9;
 
   const lenis = new Lenis({
     lerp,

@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { m, useScroll, useTransform, easeOutExpo } from '../lib/motion';
 import { Button } from './ui/button';
+import { FallingPattern } from './ui/falling-pattern';
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -20,9 +21,18 @@ export default function Hero() {
       ref={ref}
       className="relative min-h-[100svh] flex items-center pt-24 pb-16 md:pt-28 md:pb-24 overflow-hidden contain-paint"
     >
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <div className="hero-blob-drift absolute top-[-15%] right-[-8%] h-[50%] w-[45%] rounded-full bg-neutral-900/70 blur-2xl will-change-transform" />
-        <div className="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-black via-black/85 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-black" aria-hidden>
+        <FallingPattern
+          className="opacity-70"
+          color="rgba(255,255,255,0.55)"
+          backgroundColor="#000000"
+          duration={45}
+          blurIntensity="0.6em"
+          density={1}
+        />
+        {/* Gradasi transisi menyatu ke hitam solid di bagian bawah, menerus ke section berikutnya */}
+        <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-black via-black/80 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/60 to-transparent" />
       </div>
 
       <div className="relative mx-auto max-w-[1280px] w-full px-5 sm:px-8">
