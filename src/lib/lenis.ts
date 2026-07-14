@@ -76,42 +76,37 @@ export function scrollToHash(
 export function initLenis(): () => void {
   if (typeof window === 'undefined') return () => undefined;
 
-  if (prefersReducedMotion()) {
-    document.documentElement.classList.remove('lenis', 'lenis-smooth');
-    return () => undefined;
-  }
-
+  // Catatan: sebelumnya Lenis di-skip total pada prefers-reduced-motion dan
+  // pada device low-power (fallback ke native scroll). Sekarang Lenis SELALU
+  // diaktifkan di semua device/browser — termasuk touch, low-power, dan
+  // reduced-motion — supaya pengalaman smooth-scroll konsisten di mana saja.
+  // syncTouch tetap true di touch device supaya scroll custom benar-benar
+  // dipakai (bukan native) alih-alih hanya mempercantik momentum-nya.
   const touch = isTouchDevice();
   const lowPower = isLowPowerDevice();
-
-  /**
-   * Device low-power (mis. Oppo A83 / RAM kecil) dapat lebih "lancar" dengan
-   * scroll native browser daripada raf-loop Lenis yang ikut berebut main
-   * thread dengan animasi lain. Native scroll di Android modern sudah smooth
-   * secara default, dan scrollToHash() tetap punya fallback native di bawah.
-   */
-  if (lowPower) {
-    document.documentElement.classList.remove('lenis', 'lenis-smooth');
-    document.documentElement.style.scrollBehavior = 'smooth';
-    return () => {
-      document.documentElement.style.scrollBehavior = '';
-    };
-  }
+  const reducedMotion = prefersReducedMotion();
 
   // Tear down previous instance (StrictMode / remount)
   if (lenisInstance) {
     destroyLenis();
   }
 
-  /** Desktop: buttery lerp 0.08 + duration 1.2. Touch: slightly higher lerp keeps motion stable. */
-  const lerp = touch ? 0.09 : 0.08;
+  /**
+   * Desktop: buttery lerp 0.08 + duration 1.2.
+   * Touch: sedikit lebih tinggi lerp-nya biar gerakan tetap stabil.
+   * Low-power: lerp lebih tinggi lagi (transisi lebih pendek) supaya main
+   * thread tidak keberatan, tapi tetap pakai Lenis, bukan native scroll.
+   * Reduced-motion: durasi dipangkas jauh lebih pendek, tapi tetap Lenis.
+   */
+  const lerp = lowPower ? 0.12 : touch ? 0.09 : 0.08;
+  const duration = reducedMotion ? 0.3 : lowPower ? 0.9 : 1.2;
 
   const lenis = new Lenis({
     lerp,
-    duration: 1.2,
+    duration,
     easing: lenisEasing,
     smoothWheel: true,
-    syncTouch: false,
+    syncTouch: true,
     touchInertiaExponent: touch ? 1.55 : 1.7,
     touchMultiplier: touch ? 1.15 : 1,
     wheelMultiplier: 1,
