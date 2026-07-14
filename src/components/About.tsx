@@ -26,11 +26,11 @@ export default function About() {
                   Tentang JCC
                 </p>
                 <h2 className="text-3xl sm:text-4xl md:text-[2.75rem] font-semibold tracking-tight leading-[1.1] text-white">
-                  Journalism
+                  Jurnalistik &
                   <br />
-                  Creative Club
+                  Content Creator
                   <br />
-                  Skensa
+                  Lensa Skensa
                 </h2>
               </m.div>
             </div>
@@ -44,12 +44,13 @@ export default function About() {
                 className="max-w-xl"
               >
                 <p className="text-base md:text-lg text-neutral-400 leading-relaxed">
-                  JCC Skensa adalah wadah bagi siswa SMKN 1 Kedungwuni yang memiliki minat di
-                  bidang jurnalistik, fotografi, videografi, desain, dan media sosial.
+                  JCC (Jurnalistik & Content Creator) Lensa Skensa adalah wadah bagi siswa SMKN 1
+                  Kedungwuni yang memiliki minat di bidang jurnalistik dan content creator —
+                  talent, fotografi, videografi, hingga editing.
                 </p>
                 <p className="mt-4 text-base md:text-lg text-neutral-400 leading-relaxed">
-                  Kami belajar, berkarya, dan berkontribusi untuk menyampaikan informasi dan
-                  inspirasi.
+                  Kreatif, inspiratif, dan berbagi karya — kami belajar dan berkontribusi untuk
+                  menyampaikan informasi dan inspirasi lewat karya.
                 </p>
                 <a
                   href="#divisi"
@@ -75,7 +76,7 @@ export default function About() {
                       variants={fadeUp}
                       className="group rounded-2xl border border-transparent hover:border-neutral-800 hover:bg-neutral-950/80 p-3 transition-colors duration-200"
                     >
-                      <Icon className="h-5 w-5 text-neutral-500 mb-3 transition-transform duration-200 group-hover:scale-110 group-hover:text-white" />
+                      <Icon className="h-5 w-5 text-neutral-500 mb-3 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-0.5 group-hover:text-white" />
                       <p className="text-2xl md:text-3xl font-semibold tracking-tight text-white">
                         {stat.value}
                       </p>

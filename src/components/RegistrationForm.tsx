@@ -127,7 +127,7 @@ export default function RegistrationForm() {
           <div className="lg:col-span-4">
             <SectionHeading
               eyebrow="Form Pendaftaran"
-              title="Gabung bersama JCC Skensa"
+              title="Gabung bersama JCC Lensa Skensa"
               description="Isi data dengan benar. Tim panitia akan menghubungi kamu melalui WhatsApp."
               className="mb-0 sticky top-28"
             />
@@ -341,7 +341,7 @@ export default function RegistrationForm() {
                         </Label>
                         <Textarea
                           id="reason"
-                          placeholder="Ceritakan alasanmu ingin bergabung dengan JCC Skensa..."
+                          placeholder="Ceritakan alasanmu ingin bergabung dengan JCC Lensa Skensa..."
                           {...register('reason')}
                           aria-invalid={!!errors.reason}
                         />

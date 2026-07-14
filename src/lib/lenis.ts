@@ -1,4 +1,5 @@
 import Lenis from 'lenis';
+import { isTouchDevice, prefersReducedMotion, isLowPowerDevice } from './perf';
 
 /** Premium ease-out expo (natural deceleration). */
 export const lenisEasing = (t: number) =>
@@ -10,23 +11,6 @@ let running = false;
 
 export function getLenis(): Lenis | null {
   return lenisInstance;
-}
-
-function isTouchDevice() {
-  return (
-    window.matchMedia('(pointer: coarse)').matches ||
-    navigator.maxTouchPoints > 0
-  );
-}
-
-function prefersReducedMotion() {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
-function isLowPowerDevice() {
-  const mem = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
-  const cores = navigator.hardwareConcurrency ?? 8;
-  return (typeof mem === 'number' && mem <= 4) || cores <= 4;
 }
 
 function stopRaf() {
@@ -97,27 +81,37 @@ export function initLenis(): () => void {
     return () => undefined;
   }
 
+  const touch = isTouchDevice();
+  const lowPower = isLowPowerDevice();
+
+  /**
+   * Device low-power (mis. Oppo A83 / RAM kecil) dapat lebih "lancar" dengan
+   * scroll native browser daripada raf-loop Lenis yang ikut berebut main
+   * thread dengan animasi lain. Native scroll di Android modern sudah smooth
+   * secara default, dan scrollToHash() tetap punya fallback native di bawah.
+   */
+  if (lowPower) {
+    document.documentElement.classList.remove('lenis', 'lenis-smooth');
+    document.documentElement.style.scrollBehavior = 'smooth';
+    return () => {
+      document.documentElement.style.scrollBehavior = '';
+    };
+  }
+
   // Tear down previous instance (StrictMode / remount)
   if (lenisInstance) {
     destroyLenis();
   }
 
-  const touch = isTouchDevice();
-  const lowPower = isLowPowerDevice();
-
-  /**
-   * Desktop: buttery lerp 0.08 + duration 1.2
-   * Mobile / low-power: slightly higher lerp keeps motion stable without lag
-   */
-  const lerp = lowPower ? 0.1 : touch ? 0.09 : 0.08;
+  /** Desktop: buttery lerp 0.08 + duration 1.2. Touch: slightly higher lerp keeps motion stable. */
+  const lerp = touch ? 0.09 : 0.08;
 
   const lenis = new Lenis({
     lerp,
     duration: 1.2,
     easing: lenisEasing,
     smoothWheel: true,
-    syncTouch: true,
-    syncTouchLerp: touch ? 0.075 : 0.1,
+    syncTouch: false,
     touchInertiaExponent: touch ? 1.55 : 1.7,
     touchMultiplier: touch ? 1.15 : 1,
     wheelMultiplier: 1,
@@ -233,6 +227,9 @@ export function initLenis(): () => void {
   const settleTimers = [200, 600, 1200].map((ms) =>
     window.setTimeout(scheduleResize, ms)
   );
+
+  // Web font (Inter) baru selesai load bisa mengubah tinggi teks → resize ulang
+  document.fonts?.ready?.then(() => scheduleResize()).catch(() => undefined);
 
   return () => {
     settleTimers.forEach((id) => window.clearTimeout(id));

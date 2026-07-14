@@ -184,7 +184,7 @@ export default function AdminDashboard() {
             </p>
             <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">Data Pendaftar</h1>
             <p className="mt-2 text-sm text-neutral-400">
-              Kelola, pilih, dan ekspor data pendaftar JCC Skensa.
+              Kelola, pilih, dan ekspor data pendaftar JCC Lensa Skensa.
             </p>
           </div>
 

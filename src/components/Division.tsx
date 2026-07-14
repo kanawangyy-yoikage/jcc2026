@@ -8,7 +8,7 @@ export default function Division() {
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         <SectionHeading
           eyebrow="Divisi Kami"
-          title="Lima jalur kreatif untuk berkembang"
+          title="Empat jalur kreatif untuk berkembang"
           description="Pilih divisi yang sesuai minatmu. Setiap divisi punya mentor, proyek nyata, dan ruang bereksperimen."
         />
 
@@ -17,7 +17,7 @@ export default function Division() {
           initial="hidden"
           whileInView="show"
           viewport={viewOnce}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-5"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5"
         >
           {divisions.map((div) => {
             const Icon = div.icon;
@@ -30,7 +30,7 @@ export default function Division() {
                 className="group relative rounded-[20px] border border-neutral-800 bg-black p-6 shadow-sm shadow-white/5 hover:shadow-md hover:border-white transition-[box-shadow,border-color] duration-250 will-change-transform"
               >
                 <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-neutral-900 bg-neutral-950 transition-colors duration-200 group-hover:border-white group-hover:bg-white group-hover:text-black">
-                  <Icon className="h-5 w-5 transition-transform duration-200 group-hover:scale-110" />
+                  <Icon className="h-5 w-5 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6" />
                 </div>
                 <h3 className="text-base font-semibold tracking-tight text-white uppercase">
                   {div.title}

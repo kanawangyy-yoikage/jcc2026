@@ -56,8 +56,25 @@ body {
   backface-visibility: hidden;
 }
 
+/* Drift halus untuk blob dekorasi hero — transform-only, murah di GPU */
+@keyframes hero-blob-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-14px, 16px, 0) scale(1.05);
+  }
+}
+
+.hero-blob-drift {
+  animation: hero-blob-drift 12s ease-in-out infinite;
+  transform: translateZ(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-float {
+  .hero-float,
+  .hero-blob-drift {
     animation: none;
   }
 
@@ -68,6 +85,26 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/**
+ * Perf mode untuk device low-power (mis. Oppo A83 / RAM kecil), diaktifkan
+ * lewat initPerfMode() di main.tsx. Tidak mengubah desain — hanya
+ * menurunkan biaya render efek yang paling mahal di GPU murah:
+ * backdrop-filter (blur di navbar/card) dan blur besar (blob hero).
+ */
+html.perf-low .hero-float,
+html.perf-low .hero-blob-drift {
+  animation: none;
+}
+
+html.perf-low [class*='backdrop-blur'] {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html.perf-low .blur-2xl {
+  filter: blur(24px);
 }
 
 /* Accordion — height only, short duration */

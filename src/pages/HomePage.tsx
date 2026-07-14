@@ -5,7 +5,6 @@ import Hero from '../components/Hero';
 const About = lazy(() => import('../components/About'));
 const Division = lazy(() => import('../components/Division'));
 const Gallery = lazy(() => import('../components/Gallery'));
-const Timeline = lazy(() => import('../components/Timeline'));
 const RegistrationForm = lazy(() => import('../components/RegistrationForm'));
 const FAQ = lazy(() => import('../components/FAQ'));
 const Footer = lazy(() => import('../components/Footer'));
@@ -33,9 +32,6 @@ export default function HomePage() {
         </Suspense>
         <Suspense fallback={<SectionFallback height="min-h-[420px]" />}>
           <Gallery />
-        </Suspense>
-        <Suspense fallback={<SectionFallback height="min-h-[480px]" />}>
-          <Timeline />
         </Suspense>
         <Suspense fallback={<SectionFallback height="min-h-[640px]" />}>
           <RegistrationForm />

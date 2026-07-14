@@ -1,4 +1,4 @@
-import { PenLine, Camera, Video, Palette, Share2, type LucideIcon } from 'lucide-react';
+import { Mic, Camera, Video, MonitorPlay, type LucideIcon } from 'lucide-react';
 
 export interface Division {
   id: string;
@@ -9,96 +9,48 @@ export interface Division {
 
 export const divisions: Division[] = [
   {
-    id: 'pena',
-    title: 'Pena',
-    description:
-      'Menulis berita, artikel, features, dan content menarik dengan narasi yang kuat.',
-    icon: PenLine,
+    id: 'talent',
+    title: 'Talent',
+    description: 'Pembawa acara, wawancara, dan presentasi konten di depan kamera.',
+    icon: Mic,
   },
   {
     id: 'fotografi',
     title: 'Fotografi',
-    description:
-      'Mengabadikan momen terbaik dalam setiap kegiatan dengan sudut pandang kreatif.',
+    description: 'Mengabadikan momen dengan teknik pengambilan foto yang tepat.',
     icon: Camera,
   },
   {
     id: 'videografi',
     title: 'Videografi',
     description:
-      'Membuat video informatif dan kreatif dengan storytelling yang powerful.',
+      'Merekam video kegiatan, cinematography, dan produksi konten audio visual.',
     icon: Video,
   },
   {
-    id: 'desain',
-    title: 'Desain Grafis',
+    id: 'editor',
+    title: 'Editor',
     description:
-      'Merancang visual poster, feed, dan identitas visual yang elegan dan modern.',
-    icon: Palette,
-  },
-  {
-    id: 'medsos',
-    title: 'Media Sosial',
-    description:
-      'Mengelola konten digital dan menyebarkan karya JCC ke audiens yang lebih luas.',
-    icon: Share2,
+      'Mengolah hasil karya menjadi konten siap tayang — editing foto & video serta desain grafis.',
+    icon: MonitorPlay,
   },
 ];
 
 export const formDivisions = [
+  { id: 'talent', label: 'Talent' },
   { id: 'fotografi', label: 'Fotografi' },
   { id: 'videografi', label: 'Videografi' },
-  { id: 'talent', label: 'Talent' },
   { id: 'editor', label: 'Editor' },
 ] as const;
 
 export const jurusanOptions = [
-  'Rekayasa Perangkat Lunak',
-  'Teknik Komputer dan Jaringan',
-  'Desain Komunikasi Visual',
-  'Broadcasting dan Perfilman',
-  'Akuntansi',
-  'Manajemen Perkantoran',
-  'Pemasaran',
-  'Lainnya',
-];
-
-export const timelineItems = [
-  {
-    id: 1,
-    step: '01',
-    title: 'Pendaftaran',
-    date: '1 – 15 Juni 2026',
-    description: 'Isi formulir online dan lengkapi data diri dengan benar.',
-  },
-  {
-    id: 2,
-    step: '02',
-    title: 'Seleksi Administrasi',
-    date: '16 – 18 Juni 2026',
-    description: 'Tim panitia meninjau kelengkapan dan kesesuaian data pendaftar.',
-  },
-  {
-    id: 3,
-    step: '03',
-    title: 'Wawancara',
-    date: '19 – 22 Juni 2026',
-    description: 'Sesi wawancara singkat untuk mengenal minat dan komitmenmu.',
-  },
-  {
-    id: 4,
-    step: '04',
-    title: 'Pengumuman',
-    date: '23 Juni 2026',
-    description: 'Hasil seleksi diumumkan melalui media sosial dan WhatsApp.',
-  },
-  {
-    id: 5,
-    step: '05',
-    title: 'First Gathering',
-    date: '25 Juni 2026',
-    description: 'Pertemuan pertama anggota baru — kenalan, briefing, dan mulai berkarya.',
-  },
+  'Desain Pemodelan dan Informasi Bangunan (DPIB)',
+  'Teknik Instalasi Tenaga Listrik (TITL)',
+  'Teknik Pengelasan (TLAS)',
+  'Teknik Pemesinan (TPEM)',
+  'Teknik Kendaraan Ringan dan Otomotif (TKR)',
+  'Teknik Jaringan Komputer dan Telekomunikasi (TJKT)',
+  'Teknik Geomatika (GMT)',
 ];
 
 export const faqItems = [
@@ -118,7 +70,7 @@ export const faqItems = [
     id: 'faq-3',
     question: 'Kapan latihan JCC?',
     answer:
-      'Latihan rutin biasanya diadakan seminggu sekali setelah jam sekolah. Jadwal pasti akan diinformasikan setelah First Gathering.',
+      'Latihan rutin biasanya diadakan seminggu sekali setelah jam sekolah. Jadwal pasti akan diinformasikan setelah pengumuman anggota baru.',
   },
   {
     id: 'faq-4',
@@ -137,8 +89,8 @@ export const galleryImages = [
 ];
 
 export const stats = [
-  { value: '50+', label: 'Member', icon: 'users' as const },
-  { value: '200+', label: 'Liputan', icon: 'camera' as const },
-  { value: '40+', label: 'Event', icon: 'calendar' as const },
-  { value: '5', label: 'Divisi', icon: 'layers' as const },
+  { value: '4', label: 'Divisi', icon: 'layers' as const },
+  { value: '7', label: 'Jurusan Terbuka', icon: 'users' as const },
+  { value: '6', label: 'Benefit Bergabung', icon: 'camera' as const },
+  { value: '2026', label: 'Angkatan Baru', icon: 'calendar' as const },
 ];

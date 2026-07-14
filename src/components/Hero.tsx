@@ -21,7 +21,7 @@ export default function Hero() {
       className="relative min-h-[100svh] flex items-center pt-24 pb-16 md:pt-28 md:pb-24 overflow-hidden contain-paint"
     >
       <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <div className="absolute top-[-15%] right-[-8%] h-[50%] w-[45%] rounded-full bg-neutral-900/70 blur-2xl will-change-transform" />
+        <div className="hero-blob-drift absolute top-[-15%] right-[-8%] h-[50%] w-[45%] rounded-full bg-neutral-900/70 blur-2xl will-change-transform" />
         <div className="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-black via-black/85 to-transparent" />
       </div>
 
@@ -45,7 +45,7 @@ export default function Hero() {
             >
               JCC
               <br />
-              SKENSA
+              LENSA SKENSA
             </m.h1>
 
             <m.p
@@ -54,8 +54,8 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.26, ease: easeOutExpo }}
               className="mt-6 max-w-md text-base md:text-lg text-neutral-400 leading-relaxed"
             >
-              Tulis cerita. Abadikan momen.
-              <br className="hidden sm:block" /> Sebarkan inspirasi.
+              Kreatif, inspiratif,
+              <br className="hidden sm:block" /> berbagi karya.
             </m.p>
 
             <m.div
@@ -91,7 +91,7 @@ export default function Hero() {
                   <source srcSet="/images/hero-jcc.webp" type="image/webp" />
                   <img
                     src="/images/hero-jcc.jpg"
-                    alt="Anggota JCC SKENSA"
+                    alt="Anggota JCC Lensa Skensa"
                     width={900}
                     height={1200}
                     fetchPriority="high"

@@ -10,7 +10,6 @@ const navLinks = [
   { href: '#beranda', label: 'Beranda' },
   { href: '#tentang', label: 'Tentang' },
   { href: '#divisi', label: 'Divisi' },
-  { href: '#timeline', label: 'Timeline' },
   { href: '#galeri', label: 'Galeri' },
   { href: '#faq', label: 'FAQ' },
 ] as const;
@@ -73,7 +72,7 @@ export default function Navbar() {
                 JCC
               </span>
               <span className="text-[10px] font-medium tracking-[0.18em] uppercase text-neutral-500">
-                SKENSA
+                LENSA SKENSA
               </span>
             </span>
           </a>
@@ -89,12 +88,13 @@ export default function Navbar() {
                 )}
               >
                 {link.label}
-                <span
-                  className={cn(
-                    'absolute left-3.5 right-3.5 -bottom-0.5 h-[2px] rounded-full bg-white transition-opacity duration-200',
-                    active === link.href ? 'opacity-100' : 'opacity-0'
-                  )}
-                />
+                {active === link.href && (
+                  <m.span
+                    layoutId="navbar-active-underline"
+                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                    className="absolute left-3.5 right-3.5 -bottom-0.5 h-[2px] rounded-full bg-white"
+                  />
+                )}
               </a>
             ))}
           </nav>
