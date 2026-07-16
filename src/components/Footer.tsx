@@ -68,22 +68,22 @@ export default function Footer() {
           </m.div>
 
           <m.div variants={fadeUp}>
-            <h4 className="text-sm font-semibold tracking-tight text-white mb-4">Sekretariat</h4>
+            <h4 className="text-sm font-semibold tracking-tight text-white mb-4"></h4>
             <p className="inline-flex items-start gap-2.5 text-sm text-neutral-400 leading-relaxed">
               <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
               <span>
-                Ruang Ekskul JCC
+                
                 <br />
-                SMKN 1 Kedungwuni
+                
                 <br />
-                Pekalongan, Jawa Tengah
+                
               </span>
             </p>
           </m.div>
 
           <m.div variants={fadeUp}>
             <h4 className="text-sm font-semibold tracking-tight text-white mb-4">
-              Scan untuk daftar
+              
             </h4>
             <a
               href="#daftar"
@@ -91,7 +91,7 @@ export default function Footer() {
               aria-label="Buka form pendaftaran"
             >
               <img
-                src="/images/qr-daftar.png"
+                src=""
                 alt="QR Code pendaftaran JCC"
                 width={120}
                 height={120}
