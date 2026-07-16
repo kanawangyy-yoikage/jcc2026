@@ -55,7 +55,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="jurnalistikskensa.my.id"
+                  href="https://jurnalistikskensa.my.id"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-2.5 transition-colors hover:text-white"
@@ -66,6 +66,7 @@ export default function Footer() {
               </li>
             </ul>
           </m.div>
+        </m.div>
 
         <m.div
           initial={{ opacity: 0 }}
