@@ -55,7 +55,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://jurnalistikskensa.my.id"
+                  href="jurnalistikskensa.my.id"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-2.5 transition-colors hover:text-white"
