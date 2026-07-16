@@ -67,42 +67,6 @@ export default function Footer() {
             </ul>
           </m.div>
 
-          <m.div variants={fadeUp}>
-            <h4 className="text-sm font-semibold tracking-tight text-white mb-4"></h4>
-            <p className="inline-flex items-start gap-2.5 text-sm text-neutral-400 leading-relaxed">
-              <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
-              <span>
-                
-                <br />
-                
-                <br />
-                
-              </span>
-            </p>
-          </m.div>
-
-          <m.div variants={fadeUp}>
-            <h4 className="text-sm font-semibold tracking-tight text-white mb-4">
-              
-            </h4>
-            <a
-              href="#daftar"
-              className="inline-flex rounded-2xl border border-neutral-800 bg-black p-3 shadow-sm shadow-white/5 transition-colors hover:border-white"
-              aria-label="Buka form pendaftaran"
-            >
-              <img
-                src=""
-                alt="QR Code pendaftaran JCC"
-                width={120}
-                height={120}
-                className="rounded-xl w-[120px] h-[120px] invert"
-                loading="lazy"
-                decoding="async"
-              />
-            </a>
-          </m.div>
-        </m.div>
-
         <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
