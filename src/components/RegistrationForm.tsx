@@ -32,7 +32,7 @@ const schema = z.object({
     .min(10, 'Nomor WhatsApp minimal 10 digit')
     .max(15, 'Nomor WhatsApp terlalu panjang')
     .regex(/^[0-9+\s-]+$/, 'Nomor WhatsApp tidak valid'),
-  class_level: z.enum(['X', 'XI', 'XII'], {
+  class_level: z.enum(['X', 'XI'], {
     message: 'Pilih kelas',
   }),
   major: z.string().min(1, 'Pilih jurusan'),
