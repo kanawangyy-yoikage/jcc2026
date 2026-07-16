@@ -226,7 +226,7 @@ export default function RegistrationForm() {
                                 onValueChange={field.onChange}
                                 className="flex flex-col gap-2.5"
                               >
-                                {(['X', 'XI', 'XII'] as const).map((lvl) => (
+                                {(['X', 'XI'] as const).map((lvl) => (
                                   <label
                                     key={lvl}
                                     className="flex items-center gap-3 cursor-pointer group"
